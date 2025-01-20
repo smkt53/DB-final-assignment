@@ -5,7 +5,7 @@ app.pyが提供されたサンプルファイル
 これを基にレストラン予約システムを作成する
 
 DB
-TableNo MaximumCapacity Date StartTime Name Phone
+TableNo Date StartTime Name Phone
 
 大まかなシステム
 日付を選択＞
