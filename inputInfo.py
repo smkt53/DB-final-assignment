@@ -81,17 +81,14 @@ def input_flow(table_state, date, startTime, people, way):
                 tableNo = i + 1
                 db.insert_reservation(tableNo, int(re.sub(r"\D", "", date)), int(startTime.split(":")[0]), name, phone, way, discount)
 
-        label = tk.Label(text = "予約が完了しました！\nweb予約特典がございますので\nお楽しみにお待ちください！", font = ("Helvetica", 20))
+        if way == "web":
+            label = tk.Label(text = "予約が完了しました！\nweb予約特典がございますので\nお楽しみにお待ちください！", font = ("Helvetica", 20))
+        else:
+            label = tk.Label(text = "予約が完了しました", font = ("Helvetica", 20))
 
         label.place(x = 200, y = 410)
 
-        label = tk.Label(text = "10秒後にウィンドウを閉じます", font = ("Helvetica", 10))
-
-        label.place(x = 300, y = 525)
-
         reservation_button.destroy()
-
-        # root.after(10000, delay_destroy, root)
 
         # 予約確認画面へ遷移
     def confirm_reservation():

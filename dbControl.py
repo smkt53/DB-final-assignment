@@ -43,7 +43,7 @@ def is_reservation_possible(date, starttime):
             # 予約情報を全て取得
             for row in rows:
                 for i in range(0, 8):
-                    if(row[0] == i):
+                    if(row[0] == (i + 1)):
                         table[i] = 0
 
 
@@ -127,6 +127,6 @@ def show_reservation(date):
             connection.close()
 
 
-# is_reservation_possible(20250202, 15)
+# is_reservation_possible(20250211, 12)
 # insert_reservation(5, 20250202, 15, "山田太郎", "090-1234-5678", "web", "早期予約割引")
 

@@ -4,13 +4,11 @@ import dbControl as db
 import re
 import datetime
 
-
-
-
 def set_window():
     global root_staff
     global frame_staff
     global canvas
+
 
     # 予約を追加するためのmenuを表示する
     def add_reservation():
@@ -49,46 +47,61 @@ def set_window():
         label_discount = tk.Label(text = "割引", font = ("Helvetica", 20))
         label_discount.place(x = 850, y = 210)
 
-    
+        textbox = [""] * 6
+
+        for row in db.rows_staff:
+            for i in range(0, 6):
+                if textbox == "":
+                    textbox[i] += str(row[i])
+                else:
+                    textbox[i] += "\n" + str(row[i])  # 文字列連結の修正
+
         for row in db.rows_staff:
             # テーブル番号
-            label1 = tk.Label(text = row[0], font = ("Helvetica", 20))
-            label1.place(x = 70, y = 250 + 30 * db.rows_staff.index(row))
+            label1.config(text = textbox[0])
+            label1.place(x = 70, y = 200 + 30 * db.rows_staff.index(row))
 
             # 日付
-            label2 = tk.Label(text = row[1], font = ("Helvetica", 20)) 
-            label2.place(x = 120, y = 250 + 30 * db.rows_staff.index(row))
+            label2.config(text = textbox[1])
+            label2.place(x = 120, y = 200 + 30 * db.rows_staff.index(row))
 
             # 開始時間
-            label3 = tk.Label(text= str(row[2]) + "時", font = ("Helvetica", 20))
-            label3.place(x = 270, y = 250 + 30 * db.rows_staff.index(row))
+            label3.config(text = textbox[2])
+            label3.place(x = 270, y = 200 + 30 * db.rows_staff.index(row))
 
             # 名前
-            label4 = tk.Label(text = row[3], font = ("Helvetica", 20))
-            label4.place(x = 380, y = 250 + 30 * db.rows_staff.index(row))
+            label4.config(text = textbox[3])
+            label4.place(x = 380, y = 200 + 30 * db.rows_staff.index(row))
 
             # 電話番号
-            label5 = tk.Label(text = row[4], font = ("Helvetica", 20))
-            label5.place(x = 600, y = 250 + 30 * db.rows_staff.index(row))
+            label5.config(text = textbox[4])
+            label5.place(x = 600, y = 200 + 30 * db.rows_staff.index(row))
 
             # 割引
-            label6 = tk.Label(text = row[5], font = ("Helvetica", 20))
-            label6.place(x = 850, y = 250 + 30 * db.rows_staff.index(row))
+            label6.config(text = textbox[5])
+            label6.place(x = 850, y = 200 + 30 * db.rows_staff.index(row))
 
         if(len(db.rows_staff) == 0):
             print("予約情報がありません")
-            label_no = tk.Label(text = str(datetime.date.today()) + "に予約情報がありません", font = ("Helvetica", 20))
-            label_no.place(x = 300, y = 50)
+            label_n.config(text = str(select_day.get()) + "の予約情報がありません")
+            label_n.place(x = 300, y = 50)
+            label1.config(text = "")
+            label2.config(text = "")
+            label3.config(text = "")
+            label4.config(text = "")
+            label5.config(text = "")
+            label6.config(text = "")
         else:
-            label_no.config(text = str(datetime.date.today()) + "の予約情報")
-            label_no.place(x = 300, y = 50)
+            label_n.config(text = str(select_day.get()) + "の予約情報です")
+            label_n.place(x = 300, y = 50)
 
-
-
-
-
-
-
+    label_n = tk.Label(font = ("Helvetica", 20))
+    label1 = tk.Label(font = ("Helvetica", 20))
+    label2 = tk.Label(font = ("Helvetica", 20))
+    label3 = tk.Label(font = ("Helvetica", 20))
+    label4 = tk.Label(font = ("Helvetica", 20))
+    label5 = tk.Label(font = ("Helvetica", 20))
+    label6 = tk.Label(font = ("Helvetica", 20))
 
     button = tk.Button(text = "予約を追加", font = ("Helvetica", 20), command = add_reservation)
     button.place(x = 100, y = 50)
@@ -109,7 +122,7 @@ root_staff = tk.Tk()
 
 root_staff.title("Menu")
 
-root_staff.geometry("800x600+500+100")
+root_staff.geometry("1200x600+500+100")
 
 frame_staff = tk.Frame(root_staff)
 
